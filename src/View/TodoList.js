@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import Axios from "axios";
 class TodoList extends Component {
@@ -14,7 +15,6 @@ class TodoList extends Component {
       header: { "Access-Control-Allow-Origin": "*" },
     })
       .then((res) => {
-        console.log(res.data);
         this.setState({ todo_list: res.data });
       })
       .catch((err) => {
@@ -35,7 +35,9 @@ class TodoList extends Component {
               {this.state.todo_list.map((item, index) => {
                 return (
                   <ListGroup.Item as="li">
-                    <strong>{(index + 1) + " " + item.title}</strong> update on{" "}{item.date}
+                    <Link
+                      to={`/todotask/${item.todo_no}/${item.title}`}
+                    ><strong>{index + 1}</strong> {item.title}</Link>
                   </ListGroup.Item>
                 );
               })}
